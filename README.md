@@ -31,14 +31,14 @@ docker compose down
 
 - **Container Name**: `chromadb`
 - **Image**: `chromadb/chroma`
-- **Port**: 8000 (mapped to localhost:8000)
+- **Port**: 3001 (mapped to localhost:3001)
 - **Data Volume**: `./chroma-data:/data`
 
 ### Accessing ChromaDB
 
 Once running, access ChromaDB at:
 ```
-http://localhost:8000
+http://localhost:3001
 ```
 
 ## Data Persistence
@@ -69,10 +69,10 @@ docker compose up --build --no-cache
 ## Troubleshooting
 
 ### Port Already in Use
-If port 8000 is already in use, modify the `docker-compose.yml` file:
+If port 3001 is already in use, modify the `docker-compose.yml` file:
 ```yaml
 ports:
-  - "8001:8000"  # Map to a different host port
+  - "3002:8000"  # Map to a different host port
 ```
 
 ### Permission Issues
