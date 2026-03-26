@@ -1,10 +1,25 @@
-version: '3.8'
-
+version: '3.9'
 services:
-  chroma:
+  # The Database
+  chromadb:
+    image: chromadb/chroma:latest
     container_name: chromadb
-    image: chromadb/chroma
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./chroma_data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+
+  # The Dashboard GUI
+  chroma-admin:
+    image: fengzhichao/chromadb-admin:latest
+    container_name: chromadb-admin
     ports:
       - "3001:3001"
-    volumes:
-      - ./chroma-data:/data
+    environment:
+      # This tells the GUI how to find the DB container internally
+      - CHROMA_URL=http://chromadb:8000
+    depends_on:
+      - chromadb
